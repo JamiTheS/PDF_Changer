@@ -1,0 +1,10 @@
+{
+  "extName": {
+    "message": "PDF Editor Pro",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Edit PDFs directly in your browser — 100% offline, free, and private.",
+    "description": "Extension description"
+  }
+}

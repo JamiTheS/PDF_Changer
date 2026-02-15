@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm init:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm approve-builds:*)",
+      "Bash(pnpm config set:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)",
+      "Bash(pnpm rebuild:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm install)",
+      "Bash(pnpm build:dev:*)",
+      "Bash(npm run build:*)",
+      "Bash(find:*)",
+      "Bash(dir:*)"
+    ]
+  }
+}
