@@ -33,11 +33,6 @@ chrome.runtime.onMessage.addListener((message: ExtensionMessage, _sender, sendRe
   return true; // keep channel open for async responses
 });
 
-// Handle extension icon click — open editor with file picker
-chrome.action.onClicked.addListener((_tab) => {
-  openEditor();
-});
-
 // --- Helpers ---
 
 function isPdfUrl(url: string): boolean {
