@@ -16,6 +16,8 @@ chrome.webNavigation?.onCompleted.addListener((details) => {
       payload: { url, fileName: extractFileName(url) } satisfies PdfDetectedPayload,
     } satisfies ExtensionMessage);
   }
+}, {
+  url: [{ urlMatches: '.*\\.pdf(\\?.*)?$' }, { urlContains: 'type=application/pdf' }],
 });
 
 // Handle messages from content scripts and popup
