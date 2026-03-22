@@ -15,7 +15,8 @@
     "webNavigation"
   ],
   "host_permissions": [
-    "<all_urls>"
+    "http://*/*",
+    "https://*/*"
   ],
   "background": {
     "service_worker": "background.js",
@@ -41,17 +42,6 @@
     },
     "default_title": "__MSG_extName__"
   },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "src/editor/editor.html",
-        "assets/*"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
-    }
-  ],
   "content_security_policy": {
     "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'"
   }
