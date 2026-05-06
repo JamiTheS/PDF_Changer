@@ -11,29 +11,12 @@
     "128": "icons/icon128.png"
   },
   "permissions": [
-    "activeTab",
-    "webNavigation"
-  ],
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
+    "activeTab"
   ],
   "background": {
     "service_worker": "background.js",
     "type": "module"
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "*://*/*.pdf",
-        "*://*/*.pdf?*"
-      ],
-      "js": [
-        "content.js"
-      ],
-      "run_at": "document_idle"
-    }
-  ],
   "action": {
     "default_popup": "src/popup/popup.html",
     "default_icon": {

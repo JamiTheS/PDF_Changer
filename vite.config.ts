@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), disablePdfJsEval()],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -26,7 +26,6 @@ export default defineConfig({
         editor: resolve(__dirname, 'src/editor/editor.html'),
         popup: resolve(__dirname, 'src/popup/popup.html'),
         background: resolve(__dirname, 'src/background/index.ts'),
-        content: resolve(__dirname, 'src/content/detector.ts'),
       },
       output: {
         entryFileNames: (chunkInfo) => {
@@ -44,3 +43,18 @@ export default defineConfig({
     drop: process.env.NODE_ENV === 'production' ? ['console', 'debugger'] : [],
   },
 });
+
+function disablePdfJsEval() {
+  return {
+    name: 'disable-pdfjs-eval',
+    transform(code: string, id: string) {
+      if (!id.includes('pdfjs-dist')) return null;
+
+      const transformed = code
+        .replaceAll('new Function("")', 'false')
+        .replaceAll("new Function('')", 'false');
+
+      return transformed === code ? null : { code: transformed, map: null };
+    },
+  };
+}
