@@ -12,10 +12,10 @@ export function Popup() {
 
   const handleEditCurrentPdf = async () => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    if (tab?.url) {
+    if (tab?.url && isSupportedPdfUrl(tab.url)) {
       chrome.runtime.sendMessage({
         type: 'OPEN_EDITOR',
-        payload: { pdfUrl: tab.url, fileName: 'document.pdf' },
+        payload: { pdfUrl: tab.url, fileName: extractFileName(tab.url) },
       });
       window.close();
     }
@@ -76,6 +76,28 @@ export function Popup() {
       </div>
     </div>
   );
+}
+
+function isSupportedPdfUrl(url: string): boolean {
+  try {
+    const parsedUrl = new URL(url);
+    if (!['https:', 'http:'].includes(parsedUrl.protocol)) return false;
+    return parsedUrl.pathname.toLowerCase().endsWith('.pdf')
+      || parsedUrl.searchParams.get('type') === 'application/pdf';
+  } catch {
+    return false;
+  }
+}
+
+function extractFileName(url: string): string {
+  try {
+    const parsedUrl = new URL(url);
+    const segments = parsedUrl.pathname.split('/');
+    const last = segments[segments.length - 1];
+    return decodeURIComponent(last) || 'document.pdf';
+  } catch {
+    return 'document.pdf';
+  }
 }
 
 function PopupAction({

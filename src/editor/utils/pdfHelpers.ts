@@ -24,7 +24,9 @@ export async function loadPdfForViewing(
   // which would detach the original Uint8Array. We pass a copy to keep
   // the original bytes valid for pdf-lib operations later.
   const loadingTask = pdfjsLib.getDocument(
-    typeof source === 'string' ? { url: source } : { data: source.slice() },
+    typeof source === 'string'
+      ? { url: source, isEvalSupported: false }
+      : { data: source.slice(), isEvalSupported: false },
   );
 
   const doc = await loadingTask.promise;
@@ -72,7 +74,10 @@ export async function getPageTextItems(
     if (pdfBytes) {
       // Attempt to recover by reloading
       console.warn('getPageTextItems: currentPdfDoc is null, reloading from bytes...');
-      const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+      const loadingTask = pdfjsLib.getDocument({
+        data: pdfBytes,
+        isEvalSupported: false,
+      });
       currentPdfDoc = await loadingTask.promise;
     } else {
       throw new Error('No PDF loaded');
@@ -360,7 +365,10 @@ export async function exportPdf(
  */
 export async function reloadPdfDocument(bytes: Uint8Array): Promise<void> {
   // Pass a copy to prevent PDF.js from detaching the original ArrayBuffer
-  const loadingTask = pdfjsLib.getDocument({ data: bytes.slice() });
+  const loadingTask = pdfjsLib.getDocument({
+    data: bytes.slice(),
+    isEvalSupported: false,
+  });
   currentPdfDoc = await loadingTask.promise;
 }
 
@@ -491,4 +499,3 @@ export function downloadPdf(bytes: Uint8Array, fileName: string): void {
   a.click();
   URL.revokeObjectURL(url);
 }
-

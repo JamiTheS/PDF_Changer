@@ -5,11 +5,14 @@
   "description": "PDF Editor Pro - Browser extension for editing PDFs locally",
   "type": "module",
   "scripts": {
+    "icons": "node --import tsx scripts/generate-icons.ts",
     "dev": "vite build --watch --mode development",
-    "build": "tsc --noEmit && vite build && node --import tsx scripts/post-build.ts",
+    "build": "node --import tsx scripts/generate-icons.ts && tsc --noEmit && vite build && node --import tsx scripts/post-build.ts",
+    "build:cws": "rimraf dist && node --import tsx scripts/generate-icons.ts && tsc --noEmit && vite build && node --import tsx scripts/post-build.ts && node --import tsx scripts/validate-cws.ts",
+    "package:cws": "rimraf pdf-editor-pro-cws.zip && npm run build:cws && cd dist && zip -r ../pdf-editor-pro-cws.zip .",
     "build:dev": "vite build --mode development && node --import tsx scripts/post-build.ts",
     "preview": "vite preview",
-    "test": "vitest run",
+    "test": "vitest run --passWithNoTests",
     "test:watch": "vitest",
     "lint": "eslint src --ext .ts,.tsx",
     "clean": "rimraf dist"

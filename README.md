@@ -23,7 +23,7 @@ A powerful, privacy-first browser extension for editing, annotating, signing, an
 - **100% offline** — All processing happens in your browser
 - **No server uploads** — Your documents never leave your device
 - **No tracking** — Zero analytics or telemetry
-- **Minimal permissions** — Only requests what's strictly needed
+- **Minimal permissions** — PDF access is initiated by the user through the extension action
 
 ## 🚀 Installation
 
@@ -38,7 +38,7 @@ cd PDF_Changer
 pnpm install
 
 # Build the extension
-pnpm run build:dev
+pnpm run build
 
 # Load in Chrome
 # 1. Go to chrome://extensions
@@ -46,6 +46,15 @@ pnpm run build:dev
 # 3. Click "Load unpacked"
 # 4. Select the `dist/` folder
 ```
+
+## Chrome Web Store package
+
+```bash
+# Build, validate, and create pdf-editor-pro-cws.zip
+npm run package:cws
+```
+
+The store package intentionally uses only the `activeTab` permission and does not ship broad host permissions or static content scripts. The validation step also checks for valid PNG icons, source maps, broad URL permissions, and common dynamic-code patterns before creating the zip.
 
 ## 🛠️ Tech Stack
 

@@ -7,7 +7,7 @@ import { usePDFStore } from '@stores/pdfStore';
 import { loadPdfForViewing, readFileAsBytes } from '../utils/pdfHelpers';
 
 const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100 MB
-const ALLOWED_SCHEMES = ['https:', 'http:', 'chrome-extension:', 'file:'];
+const ALLOWED_SCHEMES = ['https:', 'http:', 'chrome-extension:'];
 
 export function usePDF() {
   const {
